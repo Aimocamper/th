@@ -1,0 +1,99 @@
+<html>
+<head>
+  <title>vakiointi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div>
+  Vakiointi<br>
+Montako kattilaa: <br><input type="number" id="kattila"><br>
+ 
+M‰‰r‰: <br><input type="number" id="koko"><br>
+
+Haluttu rasva%: <br><input type="number" id="Rasvaprosentti"><br>
+
+Raakamaidon rasva: <br><input type="number" id="raakamaito"><br>
+
+<br><button id="say">laske</button>
+ 
+
+<div id="result1"></div>
+<div id="result2"></div>
+<hr>
+Kurrilis‰ys<br>
+Maidon R%<br><input type="number" id="maidonrasva"><br>
+Haluttu rasva<br><input type="number" id="halutturasva"><br>
+Maidon m‰‰r‰<br><input type="number" id="maidonmaara"><br>
+
+<br><button id="kur">laske</button>
+<div id="result3"></div>
+
+<hr>
+
+Maidon lis‰ys<br>
+Maidon keskirasva: <br><input type="number" id="maidonkeskirasva"><br>
+Haluttu rasva<br><input type="number" id="haluttumaidonrasva"><br>
+Nykyinen rasva<br><input type="number" id="nykyinenrasva"><br>
+Maidon m‰‰r‰<br><input type="number" id="maito"><br>
+<br><button id="mai">laske</button>
+<div id="result4"></div>
+
+ </div>
+<script>
+
+function maitolaskuri() {
+  var raakamaidonrasvaprosentti = document.getElementById('maidonkeskirasva').value;
+  var maito1 = document.getElementById('maito').value;
+  var haluttu1 = document.getElementById('haluttumaidonrasva').value;
+  var kertoja1 = document.getElementById('haluttumaidonrasva').value - document.getElementById('nykyinenrasva').value;
+  var jakaja1 = raakamaidonrasvaprosentti - document.getElementById('haluttumaidonrasva').value;
+  var vastaus1 = kertoja1 * maito1 / jakaja1;
+  document.getElementById('result4').innerHTML = "maidon tarve  " + vastaus1.toFixed(0) + ' Litraa';
+}
+
+function kurrilaskuri() {
+  var kurri = 0.05;
+  var maitomaara = document.getElementById('maidonmaara').value;
+  var kertoja = document.getElementById('maidonrasva').value - document.getElementById('halutturasva').value;
+  var haluttu = document.getElementById('halutturasva').value;
+  var vastaus = kertoja * maitomaara / haluttu;
+  document.getElementById('result3').innerHTML = "kurrin tarve  " + vastaus.toFixed(0) + ' Litraa';
+}
+
+
+ 
+
+function vakiointi() {
+	var kurri = 0.05;
+    var koko = document.getElementById('koko').value * document.getElementById('kattila').value;
+    var hrasva = document.getElementById('Rasvaprosentti').value;
+	var rmrasva = document.getElementById('raakamaito').value;
+
+	if(kurri < hrasva){
+    var kurri1 =  hrasva - kurri;
+}else{
+	var kurri1 = kurri - hrasva;
+}
+    if(rmrasva > hrasva){
+    var rm1 = rmrasva - hrasva;
+}else{
+	
+var rm1 =  hrasva - rmrasva;
+}
+ var jakaja = kurri1 + rm1;
+var kurri2 = kurri1 / jakaja * koko;
+var rm2 = rm1 / jakaja * koko;
+var kurri3 = kurri2.toFixed(0);
+var rm3 = rm2.toFixed(0);
+    document.getElementById('result1').innerHTML = "Raakamaito  " + kurri3;
+	document.getElementById('result2').innerHTML = "Kurri  " + rm3;
+}
+ 
+document.getElementById('say').addEventListener('click', vakiointi);
+ document.getElementById('kur').addEventListener('click', kurrilaskuri);
+document.getElementById('mai').addEventListener('click', maitolaskuri);
+
+</script>
+ 
+</body>
+</html>
